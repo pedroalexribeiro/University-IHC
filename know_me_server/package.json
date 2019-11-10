@@ -1,5 +1,7 @@
 {
   "name": "know_me_server",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "jquery": "^3.4.1"
+  }
 }
