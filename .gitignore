@@ -139,6 +139,7 @@ know_me_server/spec/examples.txt
 know_me_server/test/tmp/
 know_me_server/test/version_tmp/
 know_me_server/tmp/
+know_me_server/log/
 
 # Used by dotenv library to load environment variables.
 # .env
