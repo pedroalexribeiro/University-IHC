@@ -126,19 +126,19 @@ yarn-debug.log*
 .yarn-integrity
 
 # Ignore uploaded files in development
-/storage/*
-!/storage/.keep
+know_me_server/storage/*
+!know_me_server/storage/.keep
 
 ### Ruby ###
 *.gem
-/.config
-/InstalledFiles
-/pkg/
-/spec/reports/
-/spec/examples.txt
-/test/tmp/
-/test/version_tmp/
-/tmp/
+know_me_server/.config
+know_me_server/InstalledFiles
+know_me_server/pkg/
+know_me_server/spec/reports/
+know_me_server/spec/examples.txt
+know_me_server/test/tmp/
+know_me_server/test/version_tmp/
+know_me_server/tmp/
 
 # Used by dotenv library to load environment variables.
 # .env
