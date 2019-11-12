@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:know_me_app/profile.dart';
+import 'package:know_me_app/roomSelect.dart';
 
 class Home extends StatelessWidget {
   Home({Key key, this.title}) : super(key: key);
@@ -76,7 +77,7 @@ class Button extends StatelessWidget {
           //Use`Navigator` widget to push the second screen to out stack of screens
           Navigator.of(context)
               .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-            return new Profile();
+            return new RoomSelect();
           }));
         });
   }

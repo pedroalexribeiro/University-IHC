@@ -4,16 +4,19 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:flutter/foundation.dart';
 
 class RoomSelect extends StatefulWidget {
-  final WebSocketChannel channel;
+  WebSocketChannel channel;
 
-  RoomSelect({Key key, @required this.channel}) : super(key: key);
+  RoomSelect({
+    Key key,
+  }) : super(key: key);
 
   @override
   _RoomSelectState createState() => _RoomSelectState();
 }
 
 class _RoomSelectState extends State<RoomSelect> {
-  var channel = IOWebSocketChannel.connect('ws://localhost:6637');
+  var channel = IOWebSocketChannel.connect('ws://localhost:3000/cable');
+
   TextEditingController _controller = TextEditingController();
 
   @override
@@ -23,7 +26,7 @@ class _RoomSelectState extends State<RoomSelect> {
         body: Row(
           children: <Widget>[
             StreamBuilder(
-              stream: widget.channel.stream,
+              stream: channel.stream,
               builder: (context, snapshot) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24.0),
