@@ -12,8 +12,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("\n\nLOOK AT ME");
-        print(channel);
         Navigator.of(context).push(MaterialPageRoute<Null>(
             builder: (BuildContext context) => RoomSelect(channel: channel)));
       },

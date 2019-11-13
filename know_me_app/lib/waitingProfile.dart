@@ -23,47 +23,22 @@ class WaitingProfile extends StatelessWidget {
                     'assets/images/icon' + icon.toString() + '.png', 130, 160),
                 Text(name),
                 Text('Waiting'),
-                /*StreamBuilder(
-                  stream: channel.stream,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError)
-                      _showDialog(context, 'Error', 'Stream error');
-                    //If it is waiting
-                    if (snapshot.connectionState == ConnectionState.waiting) ;
+                StreamBuilder(
+                    stream: channel.stream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) print('Error - Stream error');
 
-                    if (snapshot.hasData) {
-                      //String s = convertFromJsonToString()
-                      //if(s == valid) _redirect(context)
-                      //else _showDialog('Error', 'Invalid code, try again');
-                    }
+                      if (snapshot.hasData) {
+                        //String s = convertFromJsonToString()
+                        //if(s == valid) _redirect(context)
+                        //else _showDialog('Error', 'Invalid code, try again');
+                      }
 
-                    return;
-                  }),*/
+                      return;
+                    }),
               ]),
         ),
       ),
-    );
-  }
-
-  void _showDialog(BuildContext context, String title, String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text(title),
-          content: new Text(message),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 

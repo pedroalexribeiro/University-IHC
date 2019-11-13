@@ -95,12 +95,17 @@ class _RoomSelectState extends State<RoomSelect> {
               StreamBuilder(
                   stream: widget.channel.stream,
                   builder: (context, snapshot) {
+                    print("connection state\n");
+                    print(snapshot.connectionState);
                     if (snapshot.hasError) print("Error has occured");
 
                     if (snapshot.hasData) {
+                      print("DATA\n");
                       //String s = convertFromJsonToString()
                       //if(s == valid) redirect to Profile
                       //else _showDialog('Error', 'Invalid code, try again');
+                    } else if (!snapshot.hasData) {
+                      print("NO DATA\n");
                     }
 
                     return Text("am i right?\n");
@@ -125,28 +130,6 @@ class _RoomSelectState extends State<RoomSelect> {
   void dispose() {
     widget.channel.sink.close();
     super.dispose();
-  }
-
-  void _showDialog(String title, String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text(title),
-          content: new Text(message),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   void _redirect() {

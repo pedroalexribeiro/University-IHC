@@ -180,12 +180,10 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ),
-              /*StreamBuilder(
+              StreamBuilder(
                   stream: widget.channel.stream,
                   builder: (context, snapshot) {
-                    if (snapshot.hasError) _showDialog('Error', 'Stream error');
-                    //If it is waiting
-                    if (snapshot.connectionState == ConnectionState.waiting) ;
+                    if (snapshot.hasError) print('Error - Stream error');
 
                     if (snapshot.hasData) {
                       //String s = convertFromJsonToString()
@@ -193,8 +191,8 @@ class _ProfileState extends State<Profile> {
                       //else _showDialog('Error', 'Invalid code, try again');
                     }
 
-                    return;
-                  }),*/
+                    return Text("Not null");
+                  }),
             ]),
       ),
     );
@@ -254,34 +252,13 @@ class _ProfileState extends State<Profile> {
     String myJson =
         '{"command": "subscribe", "identifier": {"channel": "UserChannel"}}';
     if (_isWritten && _checkState()) {
+      _redirect();
       /*widget.channel.sink
           .add("inputValue:{\"channel\":\"ChatMessagesChannel\"}");
       _redirect();
       widget.channel.sink
           .add(myJson);*/
     }
-  }
-
-  void _showDialog(String title, String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text(title),
-          content: new Text(message),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   void _redirect() {
