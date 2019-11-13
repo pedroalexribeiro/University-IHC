@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:know_me_app/profile.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:know_me_app/home.dart';
 
@@ -7,7 +8,7 @@ class WaitingProfile extends StatelessWidget {
   int icon;
   String name;
 
-  Waiting({this.channel, this.icon, this.name});
+  WaitingProfile({this.channel, this.icon, this.name});
 
   Widget build(BuildContext context) {
     return Container(
@@ -65,6 +66,6 @@ class WaitingProfile extends StatelessWidget {
 
   void _redirect(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute<Null>(
-        builder: (BuildContext context) => Waiting(channel: channel)));
+        builder: (BuildContext context) => Profile(channel: channel)));
   }
 }
