@@ -13,18 +13,28 @@ class RoomSelect extends StatefulWidget {
 class _RoomSelectState extends State<RoomSelect> {
   bool _isWritten = false;
   String input = "";
-  var channel = IOWebSocketChannel.connect('ws://localhost:3000/cable');
+  var channel = null; //IOWebSocketChannel.connect('ws://localhost:3000/cable');
 
   TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          stops: [0.3, 0.7],
+          colors: [
+            Color.fromRGBO(107, 185, 108, 1),
+            Color.fromRGBO(11, 153, 142, 1),
+          ],
+        ),
+      ),
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: Row(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               height: 40,
@@ -45,7 +55,7 @@ class _RoomSelectState extends State<RoomSelect> {
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                      color: Color.fromRGBO(107, 185, 108, 1),
+                      color: Colors.white,
                       width: 4.0,
                     )),
                     hintText: 'Insert Code'),
@@ -78,7 +88,7 @@ class _RoomSelectState extends State<RoomSelect> {
                 ),
               ),
             ),
-            StreamBuilder(
+            /*StreamBuilder(
                 stream: channel.stream,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) _showDialog('Error', 'Stream error');
@@ -92,7 +102,7 @@ class _RoomSelectState extends State<RoomSelect> {
                   }
 
                   return;
-                }),
+                }),*/
           ],
         ),
       ),
