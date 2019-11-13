@@ -251,9 +251,10 @@ class _ProfileState extends State<Profile> {
   }
 
   void _startButton() {
+    String myJson = '{"command": "subscribe", "identifier": {"channel": "UserChannel"}}';
     if (_isWritten && _checkState()) {
       widget.channel.sink
-          .add("inputValue:{\"channel\":\"ChatMessagesChannel\"}");
+          .add(myJson);
     }
   }
 
