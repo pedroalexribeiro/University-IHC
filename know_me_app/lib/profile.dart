@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:know_me_app/home.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class Profile extends StatefulWidget {
+  WebSocketChannel channel;
+
+  Profile({this.channel});
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
   bool _isWritten = false;
+  String input = "";
   bool _icon1 = false,
       _icon2 = false,
       _icon3 = false,
@@ -130,6 +135,7 @@ class _ProfileState extends State<Profile> {
                           });
                         } else {
                           setState(() {
+                            input = value;
                             _isWritten = true;
                           });
                         }
@@ -173,6 +179,21 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ),
+              StreamBuilder(
+                  stream: widget.channel.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) _showDialog('Error', 'Stream error');
+                    //If it is waiting
+                    if (snapshot.connectionState == ConnectionState.waiting) ;
+
+                    if (snapshot.hasData) {
+                      //String s = convertFromJsonToString()
+                      //if(s == valid) _redirect
+                      //else _showDialog('Error', 'Invalid code, try again');
+                    }
+
+                    return;
+                  }),
             ]),
       ),
     );
@@ -218,12 +239,37 @@ class _ProfileState extends State<Profile> {
     return _icon1 || _icon2 || _icon3 || _icon4 || _icon5 || _icon6;
   }
 
+  void _showDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text(title),
+          content: new Text(message),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _startButton() {
     if (_isWritten && _checkState()) {
-      Navigator.of(context)
-          .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-        return Home();
-      }));
+      widget.channel.sink
+          .add("inputValue:{\"channel\":\"ChatMessagesChannel\"}");
     }
+  }
+
+  void _redirect() {
+    Navigator.of(context).push(MaterialPageRoute<Null>(
+        builder: (BuildContext context) => Waiting(channel: widget.channel)));
   }
 }
