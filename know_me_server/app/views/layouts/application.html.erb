@@ -10,13 +10,9 @@
   </head>
 
   <body>
-    <div class="container">
-      <div class="row">
-        <%= render partial: 'shared/navigation_bar' %>
-          <div class="my-3">
-            <%= yield %>
-          </div>
-      </div>
+    <div class="container-fluid">
+      <%= render partial: 'shared/navigation_bar' %>
+      <%= yield %>
     </div>
   </body>
 </html>
