@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:know_me_app/home.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:know_me_app/waiting.dart';
 
 class Profile extends StatefulWidget {
   WebSocketChannel channel;
@@ -239,6 +240,13 @@ class _ProfileState extends State<Profile> {
     return _icon1 || _icon2 || _icon3 || _icon4 || _icon5 || _icon6;
   }
 
+  void _startButton() {
+    if (_isWritten && _checkState()) {
+      widget.channel.sink
+          .add("inputValue:{\"channel\":\"ChatMessagesChannel\"}");
+    }
+  }
+
   void _showDialog(String title, String message) {
     showDialog(
       context: context,
@@ -259,13 +267,6 @@ class _ProfileState extends State<Profile> {
         );
       },
     );
-  }
-
-  void _startButton() {
-    if (_isWritten && _checkState()) {
-      widget.channel.sink
-          .add("inputValue:{\"channel\":\"ChatMessagesChannel\"}");
-    }
   }
 
   void _redirect() {
