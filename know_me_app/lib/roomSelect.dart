@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:know_me_app/profile.dart';
 
 class RoomSelect extends StatefulWidget {
   WebSocketChannel channel;
@@ -131,5 +132,10 @@ class _RoomSelectState extends State<RoomSelect> {
         );
       },
     );
+  }
+
+  void _redirect() {
+    Navigator.of(context).push(MaterialPageRoute<Null>(
+        builder: (BuildContext context) => Profile(channel: channel)));
   }
 }
