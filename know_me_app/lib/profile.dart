@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:know_me_app/home.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:know_me_app/waiting.dart';
+import 'package:know_me_app/waitingProfile.dart';
 
 class Profile extends StatefulWidget {
   WebSocketChannel channel;
@@ -240,6 +240,16 @@ class _ProfileState extends State<Profile> {
     return _icon1 || _icon2 || _icon3 || _icon4 || _icon5 || _icon6;
   }
 
+  int _checkWhichState() {
+    if (_icon1) return 1;
+    if (_icon2) return 2;
+    if (_icon3) return 3;
+    if (_icon4) return 4;
+    if (_icon5) return 5;
+    if (_icon6) return 6;
+    return 0;
+  }
+
   void _startButton() {
     if (_isWritten && _checkState()) {
       widget.channel.sink
@@ -271,6 +281,7 @@ class _ProfileState extends State<Profile> {
 
   void _redirect() {
     Navigator.of(context).push(MaterialPageRoute<Null>(
-        builder: (BuildContext context) => Waiting(channel: widget.channel)));
+        builder: (BuildContext context) => WaitingProfile(
+            channel: widget.channel, icon: _checkWhichState(), name: input)));
   }
 }

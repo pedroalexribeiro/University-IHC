@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:know_me_app/home.dart';
 
-class Waiting extends StatelessWidget {
+class WaitingProfile extends StatelessWidget {
   WebSocketChannel channel;
   int icon;
   String name;
