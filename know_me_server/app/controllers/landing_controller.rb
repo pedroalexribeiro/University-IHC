@@ -14,4 +14,8 @@ class LandingController < ApplicationController
       render :index
     end
   end
+
+  def send_possible_answers
+    ActionCable.server.broadcast "game_channel_#{request.params[:room]}", notification: 'Error, couldn\'t find'
+  end
 end
