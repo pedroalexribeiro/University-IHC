@@ -2,6 +2,5 @@
 
 # Class Theme
 class QuestionTheme < ActiveModel::Base
-    has_many :questions
+  has_many :questions
 end
-  
