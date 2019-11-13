@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2019_11_13_012727) do
 
   create_table "game_rooms", force: :cascade do |t|
     t.string "code"
+    t.boolean "active", default: true
   end
 
   create_table "messages", force: :cascade do |t|
