@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:know_me_app/profile.dart';
 import 'package:know_me_app/roomSelect.dart';
+import 'package:web_socket_channel/io.dart';
 
 class Home extends StatelessWidget {
   Home({Key key, this.title}) : super(key: key);
 
   final String title;
+  final channel = IOWebSocketChannel.connect('ws://localhost:3000/cable');
 
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print(channel);
         Navigator.of(context).push(MaterialPageRoute<Null>(
-            builder: (BuildContext context) => RoomSelect()));
+            builder: (BuildContext context) => RoomSelect(channel: channel)));
       },
       child: Container(
         decoration: BoxDecoration(

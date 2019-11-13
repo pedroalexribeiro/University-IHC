@@ -12,16 +12,18 @@ class WaitingProfile extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: Scaffold(
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              KnowMeImage(
-                  'assets/images/icon' + icon.toString() + '.png', 130, 160),
-              Text(name),
-              Text('Waiting'),
-              StreamBuilder(
+        body: Center(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                KnowMeImage(
+                    'assets/images/icon' + icon.toString() + '.png', 130, 160),
+                Text(name),
+                Text('Waiting'),
+                /*StreamBuilder(
                   stream: channel.stream,
                   builder: (context, snapshot) {
                     if (snapshot.hasError)
@@ -36,8 +38,9 @@ class WaitingProfile extends StatelessWidget {
                     }
 
                     return;
-                  }),
-            ]),
+                  }),*/
+              ]),
+        ),
       ),
     );
   }

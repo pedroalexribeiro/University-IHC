@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:know_me_app/profile.dart';
+import 'package:know_me_app/home.dart';
 
 class RoomSelect extends StatefulWidget {
   WebSocketChannel channel;
+
+  RoomSelect({this.channel});
 
   @override
   _RoomSelectState createState() => _RoomSelectState();
@@ -13,7 +16,6 @@ class RoomSelect extends StatefulWidget {
 class _RoomSelectState extends State<RoomSelect> {
   bool _isWritten = false;
   String input = "";
-  var channel = null; //IOWebSocketChannel.connect('ws://localhost:3000/cable');
 
   TextEditingController _controller = TextEditingController();
 
@@ -33,77 +35,80 @@ class _RoomSelectState extends State<RoomSelect> {
       ),
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              height: 40,
-              width: 220,
-              child: TextField(
-                onChanged: (value) {
-                  if (value.length < 1) {
-                    setState(() {
-                      _isWritten = false;
-                    });
-                  } else {
-                    setState(() {
-                      input = value;
-                      _isWritten = true;
-                    });
-                  }
-                },
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              KnowMeImage('assets/images/logo.png', 130, 160),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
                       color: Colors.white,
-                      width: 4.0,
-                    )),
-                    hintText: 'Insert Code'),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Color.fromRGBO(97, 97, 96, 1),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-              //Button
-              child: Center(
-                child: MaterialButton(
-                  child: Text(
-                    'START',
-                    style: TextStyle(
+                      height: 40,
+                      width: 220,
+                      child: TextField(
+                        onChanged: (value) {
+                          if (value.length < 1) {
+                            setState(() {
+                              _isWritten = false;
+                            });
+                          } else {
+                            setState(() {
+                              input = value;
+                              _isWritten = true;
+                            });
+                          }
+                        },
+                        decoration:
+                            InputDecoration(hintText: 'Insert Room Code'),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Color.fromRGBO(97, 97, 96, 1),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      child: MaterialButton(
+                        child: Text(
+                          'START',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
                         color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                  color: Color.fromRGBO(11, 153, 142, 1),
-                  disabledColor: Color.fromRGBO(198, 198, 198, 1),
-                  height: 40,
-                  minWidth: 220,
-                  elevation: 2,
-                  onPressed: (_isWritten) ? _sendMessage : null,
+                        disabledColor: Color.fromRGBO(198, 198, 198, 1),
+                        height: 40,
+                        minWidth: 220,
+                        elevation: 2,
+                        onPressed: (_isWritten) ? _sendMessage : null,
+                      ),
+                    )
+                  ],
                 ),
               ),
-            ),
-            /*StreamBuilder(
-                stream: channel.stream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) _showDialog('Error', 'Stream error');
-                  //If it is waiting
-                  if (snapshot.connectionState == ConnectionState.waiting) ;
+              StreamBuilder(
+                  stream: widget.channel.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) _showDialog('Error', 'Stream error');
+                    //If it is waiting
+                    if (snapshot.connectionState == ConnectionState.waiting) ;
 
-                  if (snapshot.hasData) {
-                    //String s = convertFromJsonToString()
-                    //if(s == valid) redirect to Profile
-                    //else _showDialog('Error', 'Invalid code, try again');
-                  }
+                    if (snapshot.hasData) {
+                      //String s = convertFromJsonToString()
+                      //if(s == valid) redirect to Profile
+                      //else _showDialog('Error', 'Invalid code, try again');
+                    }
 
-                  return;
-                }),*/
-          ],
+                    return;
+                  }),
+            ],
+          ),
         ),
       ),
     );
@@ -113,6 +118,7 @@ class _RoomSelectState extends State<RoomSelect> {
     if (_isWritten) {
       widget.channel.sink
           .add("inputValue:{\"channel\":\"ChatMessagesChannel\"}");
+      _redirect();
     }
   }
 
@@ -146,6 +152,6 @@ class _RoomSelectState extends State<RoomSelect> {
 
   void _redirect() {
     Navigator.of(context).push(MaterialPageRoute<Null>(
-        builder: (BuildContext context) => Profile(channel: channel)));
+        builder: (BuildContext context) => Profile(channel: widget.channel)));
   }
 }

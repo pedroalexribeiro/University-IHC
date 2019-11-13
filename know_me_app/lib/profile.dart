@@ -180,7 +180,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ),
-              StreamBuilder(
+              /*StreamBuilder(
                   stream: widget.channel.stream,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) _showDialog('Error', 'Stream error');
@@ -194,7 +194,7 @@ class _ProfileState extends State<Profile> {
                     }
 
                     return;
-                  }),
+                  }),*/
             ]),
       ),
     );
@@ -252,8 +252,9 @@ class _ProfileState extends State<Profile> {
 
   void _startButton() {
     if (_isWritten && _checkState()) {
-      widget.channel.sink
-          .add("inputValue:{\"channel\":\"ChatMessagesChannel\"}");
+      /*widget.channel.sink
+          .add("inputValue:{\"channel\":\"ChatMessagesChannel\"}");*/
+      _redirect();
     }
   }
 
