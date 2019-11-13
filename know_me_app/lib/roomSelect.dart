@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:know_me_app/profile.dart';
 import 'package:know_me_app/home.dart';
 
 class RoomSelect extends StatefulWidget {
-  WebSocketChannel channel;
+  final WebSocketChannel channel;
 
-  RoomSelect({this.channel});
+  RoomSelect({Key key, @required this.channel})
+      : super(key: key);
 
   @override
   _RoomSelectState createState() => _RoomSelectState();
@@ -118,8 +118,7 @@ class _RoomSelectState extends State<RoomSelect> {
   }
 
   void _sendMessage() {
-    String myJson =
-        '{"command": "subscribe", "identifier": {"channel": "UserChannel"}}';
+    String myJson = '{"command": "subscribe", "identifier": {"channel": "UserChannel"}}';
 
     if (_isWritten) {
       widget.channel.sink.add(myJson);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:know_me_app/profile.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:know_me_app/roomSelect.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -9,11 +9,16 @@ class Home extends StatelessWidget {
   final String title;
   final channel = IOWebSocketChannel.connect('ws://localhost:3000/cable');
 
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute<Null>(
+<<<<<<< Updated upstream
             builder: (BuildContext context) => RoomSelect(channel: channel)));
+=======
+            builder: (BuildContext context) => RoomSelect(channel: IOWebSocketChannel.connect('ws://localhost:3000/cable'))));
+>>>>>>> Stashed changes
       },
       child: Container(
         decoration: BoxDecoration(
