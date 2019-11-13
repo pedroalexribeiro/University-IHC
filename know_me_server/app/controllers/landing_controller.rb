@@ -1,4 +1,7 @@
 class LandingController < ApplicationController
-  def index
+  def index; end
+
+  def create_room
+    
   end
 end
