@@ -95,9 +95,7 @@ class _RoomSelectState extends State<RoomSelect> {
               StreamBuilder(
                   stream: widget.channel.stream,
                   builder: (context, snapshot) {
-                    if (snapshot.hasError) _showDialog('Error', 'Stream error');
-                    //If it is waiting
-                    if (snapshot.connectionState == ConnectionState.waiting) ;
+                    if (snapshot.hasError) print("Error has occured");
 
                     if (snapshot.hasData) {
                       //String s = convertFromJsonToString()
@@ -105,7 +103,7 @@ class _RoomSelectState extends State<RoomSelect> {
                       //else _showDialog('Error', 'Invalid code, try again');
                     }
 
-                    return;
+                    return Text("am i right?\n");
                   }),
             ],
           ),
@@ -115,10 +113,11 @@ class _RoomSelectState extends State<RoomSelect> {
   }
 
   void _sendMessage() {
+    String myJson =
+        '{"command": "subscribe", "identifier": {"channel": "UserChannel"}}';
+
     if (_isWritten) {
-      widget.channel.sink
-          .add("inputValue:{\"channel\":\"ChatMessagesChannel\"}");
-      _redirect();
+      widget.channel.sink.add(myJson);
     }
   }
 
