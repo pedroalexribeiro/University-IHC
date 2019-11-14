@@ -7,7 +7,7 @@ class Home extends StatelessWidget {
   Home({Key key, this.title}) : super(key: key);
 
   final String title;
-  final channel = IOWebSocketChannel.connect('ws://localhost:3000/cable');
+  final channel = IOWebSocketChannel.connect('ws://192.168.122.1:3000/cable');
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,7 @@ class Home extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-        body:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           KnowMeImage('assets/images/logo.png', 130, 160),
         ]),
       ),

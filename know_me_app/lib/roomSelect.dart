@@ -6,8 +6,7 @@ import 'package:know_me_app/home.dart';
 class RoomSelect extends StatefulWidget {
   final WebSocketChannel channel;
 
-  RoomSelect({Key key, @required this.channel})
-      : super(key: key);
+  RoomSelect({Key key, @required this.channel}) : super(key: key);
 
   @override
   _RoomSelectState createState() => _RoomSelectState();
@@ -99,9 +98,6 @@ class _RoomSelectState extends State<RoomSelect> {
 
                     if (snapshot.hasData) {
                       print("DATA\n");
-                      //String s = convertFromJsonToString()
-                      //if(s == valid) redirect to Profile
-                      //else _showDialog('Error', 'Invalid code, try again');
                     } else if (!snapshot.hasData) {
                       print("NO DATA\n");
                     }
@@ -116,9 +112,11 @@ class _RoomSelectState extends State<RoomSelect> {
   }
 
   void _sendMessage() {
-    String myJson = '{"command": "subscribe", "identifier": {"channel": "UserChannel"}}';
+    String myJson =
+        '{"command": "subscribe", "identifier": {"channel": "UserChannel"}}';
 
     if (_isWritten) {
+      widget.channel.sink.add(myJson);
       widget.channel.sink.add(myJson);
     }
   }
