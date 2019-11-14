@@ -17,8 +17,6 @@ class _RoomSelectState extends State<RoomSelect> {
   bool _isWritten = false;
   String input = "";
 
-  TextEditingController _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -86,7 +84,7 @@ class _RoomSelectState extends State<RoomSelect> {
                         height: 40,
                         minWidth: 220,
                         elevation: 2,
-                        onPressed: (_isWritten) ? _sendMessage : null,
+                        onPressed: (_isWritten) ? _redirect : null,
                       ),
                     )
                   ],

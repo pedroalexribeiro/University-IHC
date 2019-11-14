@@ -180,7 +180,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ),
-              StreamBuilder(
+              /*StreamBuilder(
                   stream: widget.channel.stream,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) print('Error - Stream error');
@@ -192,7 +192,7 @@ class _ProfileState extends State<Profile> {
                     }
 
                     return Text("Not null");
-                  }),
+                  }),*/
             ]),
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:know_me_app/profile.dart';
 import 'package:know_me_app/roomSelect.dart';
@@ -10,31 +12,29 @@ class Home extends StatelessWidget {
   final channel = IOWebSocketChannel.connect('ws://localhost:3000/cable');
 
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute<Null>(
-            builder: (BuildContext context) => RoomSelect(channel: channel)));
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            stops: [0.3, 0.7],
-            colors: [
-              Color.fromRGBO(107, 185, 108, 1),
-              Color.fromRGBO(11, 153, 142, 1),
-            ],
-          ),
+    Timer(Duration(seconds: 3), () {
+      Navigator.of(context).push(MaterialPageRoute<Null>(
+          builder: (BuildContext context) => RoomSelect(channel: channel)));
+    });
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          stops: [0.3, 0.7],
+          colors: [
+            Color.fromRGBO(107, 185, 108, 1),
+            Color.fromRGBO(11, 153, 142, 1),
+          ],
         ),
-        child: Scaffold(
-          body: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                KnowMeImage('assets/images/logo.png', 130, 160),
-              ]),
-        ),
+      ),
+      child: Scaffold(
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              KnowMeImage('assets/images/logo.png', 130, 160),
+            ]),
       ),
     );
   }
