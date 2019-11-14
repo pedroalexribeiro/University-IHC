@@ -7,7 +7,6 @@ module ApplicationCable
 
     def connect
       self.uuid = SecureRandom.urlsafe_base64
-      puts uuid
     end
   end
 end
