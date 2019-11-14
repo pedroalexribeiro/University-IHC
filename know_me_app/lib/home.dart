@@ -12,6 +12,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(Duration(seconds: 3), () {
+      _sendMessage();
       Navigator.of(context).push(MaterialPageRoute<Null>(
           builder: (BuildContext context) => RoomSelect(channel: channel)));
     });
@@ -33,6 +34,15 @@ class Home extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  void _sendMessage() {
+    var myJson = {
+      "command": "subscribe",
+      "identifier": {"channel": "UserChannel"}
+    };
+
+    channel.sink.add(myJson);
   }
 }
 

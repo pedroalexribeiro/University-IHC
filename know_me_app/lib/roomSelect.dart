@@ -83,7 +83,7 @@ class _RoomSelectState extends State<RoomSelect> {
                         height: 40,
                         minWidth: 220,
                         elevation: 2,
-                        onPressed: (_isWritten) ? _redirect : null,
+                        onPressed: (_isWritten) ? _sendMessage : null,
                       ),
                     )
                   ],
@@ -110,11 +110,6 @@ class _RoomSelectState extends State<RoomSelect> {
   }
 
   void _sendMessage() {
-    var myJson = {
-      "command": "subscribe",
-      "identifier": {"channel": "UserChannel"}
-    };
-
     var roomCode = {
       "command": "message",
       "identifier": "{\"channel\": \"UserChannel\"}",
@@ -125,7 +120,6 @@ class _RoomSelectState extends State<RoomSelect> {
     };
 
     if (_isWritten) {
-      widget.channel.sink.add(myJson);
       widget.channel.sink.add(roomCode);
     }
   }
