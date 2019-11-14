@@ -8,6 +8,8 @@ class UserChannel < ApplicationCable::Channel
 
   def check_game_room(args)
     code = args['code']
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts code
     game_room = GameRoom.find(code: code)
     if game_room
       ActionCable.server.broadcast "user_#{uuid}", notification: 'Welcome'
