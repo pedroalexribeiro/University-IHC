@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:know_me_app/roomSelect.dart';
+import 'dart:convert';
 
 class Home extends StatelessWidget {
   Home({Key key, this.title}) : super(key: key);
@@ -39,10 +40,10 @@ class Home extends StatelessWidget {
   void _sendMessage() {
     var myJson = {
       "command": "subscribe",
-      "identifier": {"channel": "UserChannel"}
+      "identifier": "{\"channel\":\"UserChannel\"}"
     };
 
-    channel.sink.add(myJson);
+    channel.sink.add(jsonEncode(myJson));
   }
 }
 

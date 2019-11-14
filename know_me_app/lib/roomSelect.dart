@@ -113,11 +113,11 @@ class _RoomSelectState extends State<RoomSelect> {
   void _sendMessage() {
     var roomCode = {
       "command": "message",
-      "identifier": "{\"channel\": \"UserChannel\"}",
+      "identifier": "{\"channel\":\"UserChannel\"}",
       "data":
-          "{\"action\": \"check_game_room\", \"args\": \"{\\\"code\\\": \\\"" +
+          "{\"action\": \"check_game_room\", \"args\": \"{\\\"arg_1\\\": " +
               input +
-              "\\\"}\"}"
+              "}\"}"
     };
 
     if (_isWritten) {

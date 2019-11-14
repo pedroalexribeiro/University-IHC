@@ -21,7 +21,7 @@ class LandingController < ApplicationController
   def game_room
     @number = params['number']
     if @number < 5
-      @question_theme = QuestionTheme.find(name: 'default')
+      @question_theme = QuestionTheme.find_by(name: 'default')
       @question = @question_theme.questions.limit(@number - 1)
       ActionCable.server.broadcast("game_channel_#{@game_room.code}", JSON.generate(@game_room.send_answer))
       respond_to do |format|
@@ -45,6 +45,6 @@ class LandingController < ApplicationController
   private
 
   def set_game_room
-    @game_room = GameRoom.find(code: session['game_room'])
+    @game_room = GameRoom.find_by(code: session['game_room'])
   end
 end

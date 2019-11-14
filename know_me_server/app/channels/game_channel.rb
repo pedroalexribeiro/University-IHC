@@ -7,7 +7,7 @@ class GameChannel < ApplicationCable::Channel
   end
 
   def information(args)
-    game_room = GameRoom.find(code: args['code'])
+    game_room = GameRoom.find_by(code: args['code'])
     game_room.users.create(name: args['name'], icon: args['icon'])
   end
 end
