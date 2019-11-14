@@ -23,7 +23,7 @@ class LandingController < ApplicationController
     if @number < 5
       @question_theme = QuestionTheme.find(name: 'default')
       @question = @question_theme.questions.limit(@number - 1)
-      ActionCable.server.broadcast("game_channel_#{@game_room.code}", @game_room.send_answer)
+      ActionCable.server.broadcast("game_channel_#{@game_room.code}", JSON.generate(@game_room.send_answer))
       respond_to do |format|
         format.js { render :game_room }
       end

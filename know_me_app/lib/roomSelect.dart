@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:know_me_app/profile.dart';
 import 'package:know_me_app/home.dart';
+import 'dart:convert';
 
 class RoomSelect extends StatefulWidget {
   final WebSocketChannel channel;
@@ -120,7 +121,7 @@ class _RoomSelectState extends State<RoomSelect> {
     };
 
     if (_isWritten) {
-      widget.channel.sink.add(roomCode);
+      widget.channel.sink.add(jsonEncode(roomCode));
     }
   }
 
