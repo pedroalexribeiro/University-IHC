@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:know_me_app/profile.dart';
-import 'package:know_me_app/roomSelect.dart';
 import 'package:web_socket_channel/io.dart';
+import 'package:know_me_app/roomSelect.dart';
 
 class Home extends StatelessWidget {
   Home({Key key, this.title}) : super(key: key);
@@ -11,6 +9,7 @@ class Home extends StatelessWidget {
   final String title;
   final channel = IOWebSocketChannel.connect('ws://localhost:3000/cable');
 
+  @override
   Widget build(BuildContext context) {
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).push(MaterialPageRoute<Null>(
@@ -29,12 +28,10 @@ class Home extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              KnowMeImage('assets/images/logo.png', 130, 160),
-            ]),
+        body:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          KnowMeImage('assets/images/logo.png', 130, 160),
+        ]),
       ),
     );
   }
