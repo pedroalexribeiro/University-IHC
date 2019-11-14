@@ -97,12 +97,10 @@ class _RoomSelectState extends State<RoomSelect> {
                     if (snapshot.hasError) print("Error has occured");
 
                     if (snapshot.hasData) {
-                      print("DATA\n");
-                    } else if (!snapshot.hasData) {
-                      print("NO DATA\n");
+                      print("THIS IS ME RIGHT NOW\n");
+                      print(snapshot.data);
                     }
-
-                    return Text("am i right?\n");
+                    return Container();
                   }),
             ],
           ),
@@ -112,12 +110,23 @@ class _RoomSelectState extends State<RoomSelect> {
   }
 
   void _sendMessage() {
-    String myJson =
-        '{"command": "subscribe", "identifier": {"channel": "UserChannel"}}';
+    var myJson = {
+      "command": "subscribe",
+      "identifier": {"channel": "UserChannel"}
+    };
+
+    var roomCode = {
+      "command": "message",
+      "identifier": "{\"channel\": \"UserChannel\"}",
+      "data":
+          "{\"action\": \"check_game_room\", \"args\": \"{\\\"code\\\": \\\"" +
+              input +
+              "\\\"}\"}"
+    };
 
     if (_isWritten) {
       widget.channel.sink.add(myJson);
-      widget.channel.sink.add(myJson);
+      widget.channel.sink.add(roomCode);
     }
   }
 
