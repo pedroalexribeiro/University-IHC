@@ -1,0 +1,3 @@
+$("#question").html(<%= @question.name %>);
+
+$("#button_div").html(<%= link_to "Next Question", game_room_path(number: @number+1), remote: true %>);

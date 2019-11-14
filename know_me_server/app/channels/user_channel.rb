@@ -3,7 +3,6 @@
 # app/channels/user_channel.rb
 class UserChannel < ApplicationCable::Channel
   def subscribed
-    puts 'Hello there mate'
     stream_from "user_#{uuid}"
   end
 
