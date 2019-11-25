@@ -1,12 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:know_me_app/home.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:know_me_app/waitingProfile.dart';
 
 class Profile extends StatefulWidget {
-  WebSocketChannel channel;
+  final WebSocketChannel channel;
+  String roomId;
 
-  Profile({this.channel});
+  Profile({this.channel, this.roomId});
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -249,9 +252,21 @@ class _ProfileState extends State<Profile> {
   }
 
   void _startButton() {
-    String myJson =
-        '{"command": "subscribe", "identifier": "{\"channel\": \"UserChannel\"}"}';
+    var message = {
+      "command": "message",
+      "identifier": "{\"channel\":\"GameChannel\"}",
+      "data": "{\"action\": \"information\", \"args\": \"{\\\"name\\\": \\\"" +
+          input +
+          "\\\"," +
+          "\\\"icon\\\": \\\"" +
+          _checkWhichState().toString() +
+          "\\\"," +
+          "\\\"room_id\\\": \\\"" +
+          widget.roomId +
+          "\\\"}\"}"
+    };
     if (_isWritten && _checkState()) {
+      widget.channel.sink.add(jsonEncode(message));
       _redirect();
     }
   }
@@ -259,6 +274,9 @@ class _ProfileState extends State<Profile> {
   void _redirect() {
     Navigator.of(context).push(MaterialPageRoute<Null>(
         builder: (BuildContext context) => WaitingProfile(
-            channel: widget.channel, icon: _checkWhichState(), name: input)));
+            channel: widget.channel,
+            roomId: widget.roomId,
+            icon: _checkWhichState(),
+            name: input)));
   }
 }
