@@ -4,14 +4,10 @@
 class GameRoom < ActiveRecord::Base
   has_many :users
 
-  def send_answer
+  def users_as_json
     text = {}
     users.each do |user|
       text[user.name] = user.icon
     end
-  end
-
-  def receive_answer
-    # Do something
   end
 end
