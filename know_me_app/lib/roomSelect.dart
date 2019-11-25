@@ -97,10 +97,16 @@ class _RoomSelectState extends State<RoomSelect> {
 
                     if (snapshot.hasData) {
                       print("Room Select -> Has data\n");
-                      print(snapshot.data);
+                      var myJson = {
+                        "command": "subscribe",
+                        "identifier": "{\"channel\":\"GameChannel\"}"
+                      };
+                      widget.channel.sink.add(jsonEncode(myJson));
 
+                      print(snapshot.data.room);
                       if (snapshot.data.room) {
                         //True -> Redirect
+
                         _redirect();
                       } else {
                         //False -> Say something to the user
@@ -139,6 +145,7 @@ class _RoomSelectState extends State<RoomSelect> {
 
   void _redirect() {
     Navigator.of(context).push(MaterialPageRoute<Null>(
-        builder: (BuildContext context) => Profile(channel: widget.channel)));
+        builder: (BuildContext context) =>
+            Profile(channel: widget.channel, roomId: input)));
   }
 }

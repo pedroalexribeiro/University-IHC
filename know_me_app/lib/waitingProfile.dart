@@ -1,16 +1,15 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:know_me_app/answer.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:know_me_app/home.dart';
 
 class WaitingProfile extends StatelessWidget {
-  WebSocketChannel channel;
+  final WebSocketChannel channel;
+  final roomId;
   int icon;
   String name;
 
-  WaitingProfile({this.channel, this.icon, this.name});
+  WaitingProfile({this.channel, this.roomId, this.icon, this.name});
 
   Widget build(BuildContext context) {
     return Container(
@@ -96,6 +95,7 @@ class WaitingProfile extends StatelessWidget {
     Navigator.of(context).push(MaterialPageRoute<Null>(
         builder: (BuildContext context) => Answer(
               channel: channel,
+              roomId: roomId,
               ammountAnswers: length,
               questionType: type,
               colors: colors,

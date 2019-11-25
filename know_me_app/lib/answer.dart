@@ -5,6 +5,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 class Answer extends StatelessWidget {
   //Responder com Resposta e ID (vou ter de passar para baixo)
   final WebSocketChannel channel;
+  final String roomId;
 
   int ammountAnswers = 0;
   String questionType = "";
@@ -15,6 +16,7 @@ class Answer extends StatelessWidget {
 
   Answer(
       {this.channel,
+      this.roomId,
       this.questionType,
       this.ammountAnswers,
       this.colors,
