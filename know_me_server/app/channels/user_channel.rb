@@ -11,9 +11,9 @@ class UserChannel < ApplicationCable::Channel
     code = args['code']
     game_room = GameRoom.find_by(code: code)
     if game_room
-      ActionCable.server.broadcast "user_#{uuid}", notification: 'Welcome'
+      ActionCable.server.broadcast("user_#{uuid}", JSON.generate({'room': true}))
     else
-      ActionCable.server.broadcast "user_#{uuid}", notification: 'Error, couldn\'t find'
+      ActionCable.server.broadcast("user_#{uuid}", JSON.generate({'room': false}))
     end
   end
 end

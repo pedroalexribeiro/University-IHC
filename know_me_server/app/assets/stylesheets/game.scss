@@ -11,13 +11,17 @@
   max-height: 15vh;
 }
 
-.right {
+.white-background {
   background-image: white;  
 }
 
-.left {
-  background-image: linear-gradient(to right, #0b998e, #6bb96c);  
+.gradient-background {
+  background-image: linear-gradient(to right, #0b998e, #6bb96c); 
 }
+
+.row-fluid{
+  height: 50%;
+} 
 
 .gradient-button {
   background-image: linear-gradient(to right, #0b998e, #6bb96c);  
