@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_14_160154) do
+ActiveRecord::Schema.define(version: 2019_11_24_021739) do
+
+  create_table "answers", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.integer "question_theme_id"
+    t.index ["question_theme_id"], name: "index_answers_on_question_theme_id"
+  end
 
   create_table "game_rooms", force: :cascade do |t|
     t.string "code"
     t.boolean "active", default: true
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "question_themes", force: :cascade do |t|

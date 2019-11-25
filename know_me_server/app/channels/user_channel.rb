@@ -7,10 +7,9 @@ class UserChannel < ApplicationCable::Channel
   end
 
   def check_game_room(args)
+    args = JSON.parse(args['args'])
     code = args['code']
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    puts code
-    game_room = GameRoom.find(code: code)
+    game_room = GameRoom.find_by(code: code)
     if game_room
       ActionCable.server.broadcast "user_#{uuid}", notification: 'Welcome'
     else

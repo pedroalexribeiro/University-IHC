@@ -4,6 +4,8 @@
 class Question < ActiveRecord::Base
   belongs_to :question_theme
 
+  has_many :questions
+
   enum question_type: {
     general: 0,
     specific: 1
