@@ -10,6 +10,6 @@ class FillQuestions < ActiveRecord::Migration[5.2]
   def down
     Answer.destroy_all
     Question.destroy_all
-    QuestionType.destroy_all
+    QuestionTheme.destroy_all
   end
 end
