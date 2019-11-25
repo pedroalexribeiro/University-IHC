@@ -9,5 +9,6 @@ class GameRoom < ActiveRecord::Base
     users.each do |user|
       text[user.name] = user.icon
     end
+    text
   end
 end
