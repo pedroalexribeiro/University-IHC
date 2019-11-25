@@ -93,13 +93,19 @@ class _RoomSelectState extends State<RoomSelect> {
               StreamBuilder(
                   stream: widget.channel.stream,
                   builder: (context, snapshot) {
-                    print("connection state\n");
-                    print(snapshot.connectionState);
                     if (snapshot.hasError) print("Error has occured");
 
                     if (snapshot.hasData) {
-                      print("THIS IS ME RIGHT NOW\n");
+                      print("Room Select -> Has data\n");
                       print(snapshot.data);
+
+                      if (snapshot.data.room) {
+                        //True -> Redirect
+                        _redirect();
+                      } else {
+                        //False -> Say something to the user
+                        print("SOMETHING WENT WRONG WITH ROOM");
+                      }
                     }
                     return Container();
                   }),
@@ -122,7 +128,6 @@ class _RoomSelectState extends State<RoomSelect> {
 
     if (_isWritten) {
       widget.channel.sink.add(jsonEncode(roomCode));
-      _redirect();
     }
   }
 

@@ -8,7 +8,7 @@ class Home extends StatelessWidget {
   Home({Key key, this.title}) : super(key: key);
 
   final String title;
-  final channel = IOWebSocketChannel.connect('ws://194.210.172.192:3000/cable');
+  final channel = IOWebSocketChannel.connect('ws://192.168.1.67:3000/cable');
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +31,15 @@ class Home extends StatelessWidget {
       ),
       child: Scaffold(
         body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          KnowMeImage('assets/images/logo.png', 130, 160),
+          Center(
+            child: KnowMeImage('assets/images/logo.png', 130, 160),
+          ),
         ]),
       ),
     );
   }
 
   void _sendMessage() {
-    print("did i get here\n");
     var myJson = {
       "command": "subscribe",
       "identifier": "{\"channel\":\"UserChannel\"}"
