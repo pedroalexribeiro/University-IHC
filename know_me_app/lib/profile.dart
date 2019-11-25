@@ -180,7 +180,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ),
-              /*StreamBuilder(
+              StreamBuilder(
                   stream: widget.channel.stream,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) print('Error - Stream error');
@@ -192,7 +192,7 @@ class _ProfileState extends State<Profile> {
                     }
 
                     return Text("Not null");
-                  }),*/
+                  }),
             ]),
       ),
     );
@@ -253,11 +253,6 @@ class _ProfileState extends State<Profile> {
         '{"command": "subscribe", "identifier": "{\"channel\": \"UserChannel\"}"}';
     if (_isWritten && _checkState()) {
       _redirect();
-      /*widget.channel.sink
-          .add("inputValue:{\"channel\":\"ChatMessagesChannel\"}");
-      _redirect();
-      widget.channel.sink
-          .add(myJson);*/
     }
   }
 

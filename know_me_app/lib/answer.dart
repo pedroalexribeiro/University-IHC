@@ -1,34 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:know_me_app/home.dart';
-import 'package:know_me_app/waitingAnswer.dart';
-import 'package:know_me_app/waitingProfile.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class Answer extends StatelessWidget {
+  //Responder com Resposta e ID (vou ter de passar para baixo)
   final WebSocketChannel channel;
 
+  int ammountAnswers = 0;
+  String questionType = "";
+  List<String> colors = new List();
+  List<String> names = new List();
+  List<String> icons = new List();
   int nCard = 0;
 
-  Answer({this.channel});
+  Answer(
+      {this.channel,
+      this.questionType,
+      this.ammountAnswers,
+      this.colors,
+      this.names,
+      this.icons});
+
+  Color translateColor(String string) {
+    switch (string) {
+      case "red":
+        return Colors.red;
+        break;
+      case "green":
+        return Colors.green;
+        break;
+      case "yellow":
+        return Colors.yellow;
+        break;
+      case "blue":
+        return Colors.blue;
+        break;
+
+      default:
+        return Colors.black;
+    }
+  }
 
   Widget build(BuildContext context) {
-    /*return StreamBuilder(
-        stream: channel.stream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError)
-          //If it is waiting
-          if (snapshot.connectionState == ConnectionState.waiting) ;
-
-          if (snapshot.hasData) {
-            //String s = convertFromJsonToString()
-            // From the String will provide Type of Question -> Implied type of Answers
-            //makeAnswers()
-
-          }
-
-          return;
-        });*/
-    return _answers(context, 6, "personal");
+    return _answers(context, ammountAnswers, questionType);
   }
 
   Widget _answers(BuildContext context, int numberAnswers, String typeAnswers) {
@@ -67,22 +81,18 @@ class Answer extends StatelessWidget {
   }
 
   GestureDetector _card(BuildContext context, String typeAnswers) {
-    //list<Cores>.get(nCard);
-    //list<Name>.get(nCard);
-    //list<Icon>.get(nCard);
     //nCard++;
     switch (typeAnswers) {
       case "general":
+        Color c = translateColor(colors[nCard]);
+        nCard++;
         //Falta escolher a cor com base do que vem do WebSocket
         return GestureDetector(
           onTap: () {
             print("here0\n");
-            Navigator.of(context).push(MaterialPageRoute<Null>(
-                builder: (BuildContext context) =>
-                    WaitingAnswer(channel: channel, color: Colors.green)));
           },
           child: Card(
-            color: Colors.green,
+            color: c,
             elevation: 5,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
@@ -91,12 +101,12 @@ class Answer extends StatelessWidget {
         );
         break;
       case "personal":
+        String name = names[nCard];
+        String icon = icons[nCard];
+        nCard++;
         return GestureDetector(
           onTap: () {
             print("here1\n");
-            Navigator.of(context).push(MaterialPageRoute<Null>(
-                builder: (BuildContext context) => WaitingProfile(
-                    channel: channel, icon: 1, name: 'Name Here')));
           },
           child: Card(
             color: Colors.white,
@@ -108,9 +118,9 @@ class Answer extends StatelessWidget {
                 child: Column(
               children: [
                 //Falta escolher icon/name de acordo com que vem do Websocket
-                KnowMeImage('assets/images/icon1.png', 120, 140),
+                KnowMeImage('assets/images/icon' + icon + '.png', 120, 140),
                 Text(
-                  'Name Here',
+                  name,
                   style: TextStyle(
                     color: Color.fromRGBO(97, 97, 96, 1),
                     fontSize: 15,
