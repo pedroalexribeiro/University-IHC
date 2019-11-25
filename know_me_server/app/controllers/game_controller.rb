@@ -2,7 +2,7 @@
 
 # Game Controller
 class GameController < ApplicationController
-  before_action :set_game_room, except: %i[index create_room fill]
+  before_action :set_game_room, only: %i[game_room]
 
   def index; end
 
@@ -34,14 +34,6 @@ class GameController < ApplicationController
   end
 
   def end_screen; end
-
-  def fill
-    question_theme = QuestionTheme.create(name: 'default')
-    Question.create(question_theme: question_theme, question_type: :general, name: 'Who\'s most likely to laugh at a teachers lame joke?')
-    Question.create(question_theme: question_theme, question_type: :general, name: 'Who would throw a rubber, hit the teacher and blame another person?')
-    Question.create(question_theme: question_theme, question_type: :general, name: 'Who\' most likely to be the teacher\'s pet?')
-    Question.create(question_theme: question_theme, question_type: :general, name: 'Who has cheated during the exame the most?')
-  end
 
   private
 
