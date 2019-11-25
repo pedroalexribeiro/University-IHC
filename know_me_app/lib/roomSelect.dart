@@ -122,6 +122,7 @@ class _RoomSelectState extends State<RoomSelect> {
 
     if (_isWritten) {
       widget.channel.sink.add(jsonEncode(roomCode));
+      _redirect();
     }
   }
 
