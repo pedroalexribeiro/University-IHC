@@ -3,6 +3,7 @@
 # Game Controller
 class GameController < ApplicationController
   before_action :set_game_room, only: %i[game_room]
+  before_action :set_question_number, only: %i[game_room]
 
   def index; end
 
@@ -19,17 +20,19 @@ class GameController < ApplicationController
   end
 
   def game_room
-    @number = params['number'].to_i
     if @number < 5
       @question_theme = QuestionTheme.find_by(name: 'default')
       @question = @question_theme.questions.limit(5)[@number - 1]
-      ActionCable.server.broadcast("game_channel_#{@game_room.code}", JSON.generate(@game_room.send_answer))
+      ActionCable.server.broadcast("game_channel_#{@game_room.code}", JSON.generate(select_answers))
       respond_to do |format|
         format.js { render :game_room }
         format.html { render :game_room }
       end
     else
-      redirect_to end_screen_path
+      respond_to do |format|
+        format.js { render :end_screen }
+        format.html { render :end_screen }
+      end
     end
   end
 
@@ -37,7 +40,19 @@ class GameController < ApplicationController
 
   private
 
+  def select_answers
+    if @question.general?
+      @game_room.users_as_json
+    else
+      @question.answers_as_json
+    end
+  end
+
   def set_game_room
     @game_room = GameRoom.find_by(code: session['game_room'])
+  end
+
+  def set_question_number
+    @number = params['number'] ? params['number'].to_i : 1
   end
 end
