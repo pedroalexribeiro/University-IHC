@@ -115,9 +115,9 @@ class _RoomSelectState extends State<RoomSelect> {
       "command": "message",
       "identifier": "{\"channel\":\"UserChannel\"}",
       "data":
-          "{\"action\": \"check_game_room\", \"args\": \"{\\\"arg_1\\\": " +
+          "{\"action\": \"check_game_room\", \"args\": \"{\\\"code\\\": \\\"" +
               input +
-              "}\"}"
+              "\\\"}\"}"
     };
 
     if (_isWritten) {
