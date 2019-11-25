@@ -28,7 +28,7 @@ class Answer extends StatelessWidget {
 
           return;
         });*/
-    return _answers(context, 6, "general");
+    return _answers(context, 6, "personal");
   }
 
   Widget _answers(BuildContext context, int numberAnswers, String typeAnswers) {
