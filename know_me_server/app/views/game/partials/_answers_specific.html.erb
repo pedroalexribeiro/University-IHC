@@ -1,2 +1,7 @@
-<% @answers.each do |answer| %>
-<% end %>
+<div class="row">
+    <% @answers.each do |answer| %>
+        <div class="card" style="background-color:<%= answer.color %>;">
+            <div class="card-body"> <%=answer.name %> </div>
+        </div>
+    <% end %>
+</div>

@@ -42,8 +42,10 @@ class GameController < ApplicationController
 
   def select_answers
     if @question.general?
+      @answers = @game_room.users
       @game_room.users_as_json
     else
+      @answers = @question.answers
       @question.answers_as_json
     end
   end
