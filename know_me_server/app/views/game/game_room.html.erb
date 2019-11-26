@@ -1,10 +1,1 @@
-<div class="main-wrapper">
-  <div id="question" class="row-fluid gradient-background">
-    <h3> <%= @question.name %> </h3>
-  </div>
-  <div class="row-fluid white-background">
-    <div id="button">
-      <%= link_to "Next Question", game_room_path(number: @number+1), remote: true %>
-    </div>
-  </div>
-</div>
+<%= render "game/game_room" %>

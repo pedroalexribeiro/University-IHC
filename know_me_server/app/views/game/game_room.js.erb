@@ -1,7 +1,1 @@
-$("#question").html("<h3> <%= @question.name %> </h3>");
-
-<% if @number < 4 %>
-    $("#button").html("<%= j link_to 'Next Question', game_room_path(number: @number+1), remote: true %>");
-<% else %>
-    $("#button").html("<%= j link_to 'End Game', end_screen_path %>");
-<% end %>
+$(".container-fluid").html("<%= j render('game_room') %>");
