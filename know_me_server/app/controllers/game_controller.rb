@@ -4,6 +4,7 @@
 class GameController < ApplicationController
   before_action :set_game_room, only: %i[game_room]
   before_action :set_question_number, only: %i[game_room]
+  before_action :set_round_number, only: %i[game_room round]
 
   def index; end
 
@@ -21,7 +22,7 @@ class GameController < ApplicationController
 
   def game_room
     if @number < 5
-      @question_theme = QuestionTheme.find_by(name: 'default')
+      @question_theme = QuestionTheme.find(@round)
       @question = @question_theme.questions.limit(5)[@number - 1]
       ActionCable.server.broadcast("game_channel_#{@game_room.code}", JSON.generate(select_answers))
       respond_to do |format|
@@ -29,12 +30,27 @@ class GameController < ApplicationController
         format.html { render :game_room }
       end
     else
-      respond_to do |format|
-        format.js { render :end_screen }
-        format.html { render :end_screen }
-      end
+      redirect_to round_path
     end
   end
+
+  def round
+    offset = rand(QuestionTheme.count)
+    @question_theme = QuestionTheme.offset(offset).first
+    @question_theme = QuestionTheme.offset(offset).second if theme.id == @round
+    session['number'] = 1
+    session['round_number'] = session['round_number'] ? (session['round_number'] + 1) : 1
+    if session['round_number'] < 3
+      respond_to do |format|
+        format.js { render :round }
+        format.html { render :round }
+      end
+    else
+      redirect_to point_screen_path
+    end
+  end
+
+  def point_screen; end
 
   def end_screen; end
 
@@ -55,6 +71,14 @@ class GameController < ApplicationController
   end
 
   def set_question_number
-    @number = params['number'] ? params['number'].to_i : 1
+    session['number'] ||= 1
+    @number = session['number'].to_i
+  end
+
+  def set_round_number
+    offset = rand(QuestionTheme.count)
+    theme = QuestionTheme.offset(offset).first
+    session['round'] ||= theme.id
+    @round = session['round'].to_i
   end
 end
