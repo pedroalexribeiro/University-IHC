@@ -1,0 +1,5 @@
+<% if @question.general? %>
+    <%= render "game/partials/answers_general" %>
+<% else %>
+    <%= render "game/partials/answers_specific" %>
+<% end %>
