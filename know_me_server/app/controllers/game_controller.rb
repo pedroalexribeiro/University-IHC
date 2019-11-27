@@ -37,7 +37,7 @@ class GameController < ApplicationController
   def round
     offset = rand(QuestionTheme.count)
     @question_theme = QuestionTheme.offset(offset).first
-    @question_theme = QuestionTheme.offset(offset).second if theme.id == @round
+    @question_theme = QuestionTheme.offset(offset).second if @question_theme.id == @round
     session['number'] = 1
     session['round_number'] = session['round_number'] ? (session['round_number'] + 1) : 1
     if session['round_number'] < 3
