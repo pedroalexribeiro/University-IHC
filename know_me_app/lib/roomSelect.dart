@@ -103,14 +103,15 @@ class _RoomSelectState extends State<RoomSelect> {
                       };
                       widget.channel.sink.add(jsonEncode(myJson));
 
-                      print(snapshot.data.room);
-                      if (snapshot.data.room) {
-                        //True -> Redirect
+                      print(snapshot.data);
+                      Map<String, dynamic> map = jsonDecode(snapshot.data);
+                      print('Howdy, ${map['message']}!');
 
-                        _redirect();
-                      } else {
-                        //False -> Say something to the user
-                        print("SOMETHING WENT WRONG WITH ROOM");
+                      if (!(map['message'] is int)) {
+                        Map<String, dynamic> answer =
+                            jsonDecode(map['message']);
+                        print('PLEASE BE GOOD TO ME ${answer['room']}!');
+                        if (answer['room']) _redirect();
                       }
                     }
                     return Container();
@@ -123,16 +124,16 @@ class _RoomSelectState extends State<RoomSelect> {
   }
 
   void _sendMessage() {
-    var roomCode = {
-      "command": "message",
-      "identifier": "{\"channel\":\"UserChannel\"}",
-      "data":
-          "{\"action\": \"check_game_room\", \"args\": \"{\\\"code\\\": \\\"" +
-              input +
-              "\\\"}\"}"
-    };
-
     if (_isWritten) {
+      var roomCode = {
+        "command": "message",
+        "identifier": "{\"channel\":\"UserChannel\"}",
+        "data":
+            "{\"action\": \"check_game_room\", \"args\": \"{\\\"code\\\": \\\"" +
+                input +
+                "\\\"}\"}"
+      };
+
       widget.channel.sink.add(jsonEncode(roomCode));
     }
   }
@@ -144,8 +145,10 @@ class _RoomSelectState extends State<RoomSelect> {
   }
 
   void _redirect() {
-    Navigator.of(context).push(MaterialPageRoute<Null>(
-        builder: (BuildContext context) =>
-            Profile(channel: widget.channel, roomId: input)));
+    Future.delayed(Duration.zero, () {
+      Navigator.of(context).push(MaterialPageRoute<Null>(
+          builder: (BuildContext context) =>
+              Profile(channel: widget.channel, roomId: input)));
+    });
   }
 }

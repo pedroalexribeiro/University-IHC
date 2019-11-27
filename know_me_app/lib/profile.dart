@@ -7,7 +7,7 @@ import 'package:know_me_app/waitingProfile.dart';
 
 class Profile extends StatefulWidget {
   final WebSocketChannel channel;
-  String roomId;
+  final String roomId;
 
   Profile({this.channel, this.roomId});
   @override
@@ -134,14 +134,18 @@ class _ProfileState extends State<Profile> {
                     child: TextField(
                       onChanged: (value) {
                         if (value.length < 1) {
-                          setState(() {
-                            _isWritten = false;
-                          });
+                          if (this.mounted) {
+                            setState(() {
+                              _isWritten = false;
+                            });
+                          }
                         } else {
-                          setState(() {
-                            input = value;
-                            _isWritten = true;
-                          });
+                          if (this.mounted) {
+                            setState(() {
+                              input = value;
+                              _isWritten = true;
+                            });
+                          }
                         }
                       },
                       decoration: InputDecoration(
@@ -188,11 +192,7 @@ class _ProfileState extends State<Profile> {
                   builder: (context, snapshot) {
                     if (snapshot.hasError) print('Error - Stream error');
 
-                    if (snapshot.hasData) {
-                      //String s = convertFromJsonToString()
-                      //if(s == valid) _redirect
-                      //else _showDialog('Error', 'Invalid code, try again');
-                    }
+                    if (snapshot.hasData) {}
 
                     return Text("Not null");
                   }),
@@ -202,30 +202,32 @@ class _ProfileState extends State<Profile> {
   }
 
   void _selectIcon(int iconNumber) {
-    setState(() {
-      _setIconsToFalse();
+    if (this.mounted) {
+      setState(() {
+        _setIconsToFalse();
 
-      switch (iconNumber) {
-        case 1:
-          _icon1 = true;
-          break;
-        case 2:
-          _icon2 = true;
-          break;
-        case 3:
-          _icon3 = true;
-          break;
-        case 4:
-          _icon4 = true;
-          break;
-        case 5:
-          _icon5 = true;
-          break;
-        case 6:
-          _icon6 = true;
-          break;
-      }
-    });
+        switch (iconNumber) {
+          case 1:
+            _icon1 = true;
+            break;
+          case 2:
+            _icon2 = true;
+            break;
+          case 3:
+            _icon3 = true;
+            break;
+          case 4:
+            _icon4 = true;
+            break;
+          case 5:
+            _icon5 = true;
+            break;
+          case 6:
+            _icon6 = true;
+            break;
+        }
+      });
+    }
   }
 
   void _setIconsToFalse() {

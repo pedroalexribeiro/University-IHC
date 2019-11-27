@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 2019_11_25_205907) do
   create_table "answers", force: :cascade do |t|
     t.string "name"
     t.string "color"
-    t.integer "question_id"
-    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.integer "question_theme_id"
+    t.index ["question_theme_id"], name: "index_answers_on_question_theme_id"
   end
 
   create_table "game_rooms", force: :cascade do |t|
