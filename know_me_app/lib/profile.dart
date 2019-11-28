@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:know_me_app/home.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:know_me_app/waitingProfile.dart';
 
+import 'globalValues.dart';
+
 class Profile extends StatefulWidget {
-  final WebSocketChannel channel;
   final String roomId;
 
-  Profile({this.channel, this.roomId});
+  Profile({this.roomId});
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -17,6 +17,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   bool _isWritten = false;
   String input = "";
+  var controller;
+  var channel;
   bool _icon1 = false,
       _icon2 = false,
       _icon3 = false,
@@ -25,6 +27,9 @@ class _ProfileState extends State<Profile> {
       _icon6 = false;
 
   Widget build(BuildContext context) {
+    controller = GlobalValues.of(context).controller;
+    channel = GlobalValues.of(context).channel;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -188,7 +193,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               StreamBuilder(
-                  stream: widget.channel.stream,
+                  stream: controller.stream,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) print('Error - Stream error');
 
@@ -268,7 +273,7 @@ class _ProfileState extends State<Profile> {
           "\\\"}\"}"
     };
     if (_isWritten && _checkState()) {
-      widget.channel.sink.add(jsonEncode(message));
+      channel.sink.add(jsonEncode(message));
       _redirect();
     }
   }
@@ -276,7 +281,6 @@ class _ProfileState extends State<Profile> {
   void _redirect() {
     Navigator.of(context).push(MaterialPageRoute<Null>(
         builder: (BuildContext context) => WaitingProfile(
-            channel: widget.channel,
             roomId: widget.roomId,
             icon: _checkWhichState(),
             name: input)));

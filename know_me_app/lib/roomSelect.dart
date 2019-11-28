@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:know_me_app/globalValues.dart';
 import 'package:know_me_app/profile.dart';
 import 'package:know_me_app/home.dart';
 import 'dart:convert';
 
 class RoomSelect extends StatefulWidget {
-  final WebSocketChannel channel;
-
-  RoomSelect({Key key, @required this.channel}) : super(key: key);
+  RoomSelect({Key key}) : super(key: key);
 
   @override
   _RoomSelectState createState() => _RoomSelectState();
@@ -16,9 +14,14 @@ class RoomSelect extends StatefulWidget {
 class _RoomSelectState extends State<RoomSelect> {
   bool _isWritten = false;
   String input = "";
+  var controller;
+  var channel;
 
   @override
   Widget build(BuildContext context) {
+    controller = GlobalValues.of(context).controller;
+    channel = GlobalValues.of(context).channel;
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -91,7 +94,7 @@ class _RoomSelectState extends State<RoomSelect> {
                 ),
               ),
               StreamBuilder(
-                  stream: widget.channel.stream,
+                  stream: controller.stream,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) print("Error has occured");
 
@@ -101,7 +104,7 @@ class _RoomSelectState extends State<RoomSelect> {
                         "command": "subscribe",
                         "identifier": "{\"channel\":\"GameChannel\"}"
                       };
-                      widget.channel.sink.add(jsonEncode(myJson));
+                      channel.sink.add(jsonEncode(myJson));
 
                       print(snapshot.data);
                       Map<String, dynamic> map = jsonDecode(snapshot.data);
@@ -111,7 +114,7 @@ class _RoomSelectState extends State<RoomSelect> {
                         Map<String, dynamic> answer =
                             jsonDecode(map['message']);
                         print('PLEASE BE GOOD TO ME ${answer['room']}!');
-                        if (answer['room']) _redirect();
+                        if (answer['room']) return _redirect();
                       }
                     }
                     return Container();
@@ -134,21 +137,17 @@ class _RoomSelectState extends State<RoomSelect> {
                 "\\\"}\"}"
       };
 
-      widget.channel.sink.add(jsonEncode(roomCode));
+      channel.sink.add(jsonEncode(roomCode));
     }
   }
 
   @override
   void dispose() {
-    widget.channel.sink.close();
+    channel.sink.close();
     super.dispose();
   }
 
-  void _redirect() {
-    Future.delayed(Duration.zero, () {
-      Navigator.of(context).push(MaterialPageRoute<Null>(
-          builder: (BuildContext context) =>
-              Profile(channel: widget.channel, roomId: input)));
-    });
+  Widget _redirect() {
+    return new Profile(roomId: input);
   }
 }

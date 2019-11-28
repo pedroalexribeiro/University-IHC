@@ -2,15 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:know_me_app/profile.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+
+import 'globalValues.dart';
 
 class WaitingAnswer extends StatelessWidget {
-  WebSocketChannel channel;
   Color color;
+  var controller;
+  var channel;
 
-  WaitingAnswer({this.channel, this.color});
+  WaitingAnswer({this.color});
 
   Widget build(BuildContext context) {
+    controller = GlobalValues.of(context).controller;
+    channel = GlobalValues.of(context).channel;
     return Container(
       color: Colors.white,
       child: Scaffold(
@@ -57,6 +61,6 @@ class WaitingAnswer extends StatelessWidget {
 
   void _redirect(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute<Null>(
-        builder: (BuildContext context) => Profile(channel: channel)));
+        builder: (BuildContext context) => Profile()));
   }
 }
