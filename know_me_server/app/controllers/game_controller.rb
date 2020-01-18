@@ -24,7 +24,7 @@ class GameController < ApplicationController
     if @number < 5
       @question_theme = QuestionTheme.find(@round)
       @question = @question_theme.questions.limit(5)[@number - 1]
-      ActionCable.server.broadcast("game_channel_#{@game_room.code}", JSON.generate(select_answers))
+      ActionCable.server.broadcast("game_channel_stuff", JSON.generate(question: @question.id, answers: select_answers))
       respond_to do |format|
         format.js { render :game_room }
         format.html { render :game_room }

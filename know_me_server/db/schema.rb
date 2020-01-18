@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_25_205907) do
+ActiveRecord::Schema.define(version: 2020_01_18_152256) do
 
   create_table "answers", force: :cascade do |t|
     t.string "name"
     t.string "color"
-    t.integer "question_theme_id"
-    t.index ["question_theme_id"], name: "index_answers_on_question_theme_id"
+    t.integer "question_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "game_rooms", force: :cascade do |t|
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 2019_11_25_205907) do
     t.integer "question_type"
     t.integer "question_theme_id"
     t.index ["question_theme_id"], name: "index_questions_on_question_theme_id"
+  end
+
+  create_table "user_answers", force: :cascade do |t|
+    t.string "name"
+    t.integer "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_user_answers_on_question_id"
   end
 
   create_table "users", force: :cascade do |t|

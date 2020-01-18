@@ -2,7 +2,7 @@
     <% @answers.each do |answer| %>
         <div class="card">
             <div class="card-body">
-                <img class="image" src="<%= asset_path('icon' + answer.icon + '.png') %>" />
+                <img class="image" src="<%= asset_path('icon' + answer.icon.to_s + '.png') %>" />
                 <%= answer.name %> 
             </div>
         </div>
