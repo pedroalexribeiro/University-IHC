@@ -1,7 +1,21 @@
-<%= form_tag user_create_path, id: "my-form", method: :post do %>
-  <label class="">Room name</label>
-  <%= text_field_tag :room %>
-
-  <input type="submit" value="Submit" class='btn btn-default' %>
-<% end %>
-
+<div class = "full_body row ">
+    <div class = "col">
+        <div class = "main-row row">
+            <div class = "d-flex justify-content-center col">
+                <img class="image" src="<%= asset_path('logo.png') %>" />
+            </div>
+        </div>
+        <div class = "main-row row">
+            <div class = "col"> </div>
+        </div>
+        <div class = "main-row row">
+            <div class = "d-flex justify-content-center col">
+                <%= form_tag user_create_path, id: "my-form", method: :post do %>
+                    <%= text_field_tag :room , nil, placeholder: 'Room Code', id: "input_room_code"%>
+                    <br><br><br>
+                    <input type="submit" value="START" id="confirm_button" %>
+                <% end %>
+            </div>
+        </div>  
+    </div>
+</div>
