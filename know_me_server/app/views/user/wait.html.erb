@@ -105,16 +105,26 @@
     // Renders a specific message
     function renderMessage(messageObject) {
         const messageDiv = document.createElement('div');
-        messageDiv.innerHTML = "<form>"
-        messageDiv.innerHTML = '<input type="hidden" id="custId" name="custId" value="' + messageObject.question + '">'
+
+        messageDiv.innerHTML = ' <div class = "full_body_white row">\n';
+        messageDiv.innerHTML += "<form>";
+        messageDiv.innerHTML += '<input type="hidden" id="custId" name="custId" value="' + messageObject.question + '">';
+        
         var stuff = messageObject.answers;
         Object.keys(stuff).forEach(function(k) {
-            messageDiv.innerHTML += '<input id="iconSelect" name="icon" type="radio" value="' + k + ';' + stuff[k] + '"/>'
-            messageDiv.innerHTML += "<h1>" + k + " - " + stuff[k] + "</h1>";
+
+            messageDiv.innerHTML += '<div class = "d-flex justify-content-center col-6">\n';
+            messageDiv.innerHTML += '<div class = "row" style="align-content:center;">\n';
+            messageDiv.innerHTML += '<input class="icon" id="icon_' + k + '"  name="icon" type="radio" value="' + k + ';' + stuff[k] + '" checked="checked"/>\n';
+            var s = "" + "icon" + k + ".png";
+            messageDiv.innerHTML += '<label for="icon_' + k + '"><img class="image_icon_answer" src="<%= asset_path(s) %>"/>\n';
+            messageDiv.innerHTML += '</label>\n</div>\n</div>';
+            //messageDiv.innerHTML += '<input id="iconSelect" name="icon" type="radio" value="' + k + ';' + stuff[k] + '"/>'
+            //messageDiv.innerHTML += "<h1>" + k + " - " + stuff[k] + "</h1>";
             console.log(k + " : " + stuff[k]);
         });
 
-        messageDiv.innerHTML += '<input type="button" value="clickme" onclick="sendAnswer();"/> </form>'
+        messageDiv.innerHTML += '<input type="button" value="clickme" onclick="sendAnswer();"/> </form> \n</div>'
 
         bodyDiv.innerHTML = messageDiv.innerHTML;
     }
