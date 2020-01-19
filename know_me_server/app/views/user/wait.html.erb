@@ -61,7 +61,6 @@
                         icon_url = result.four
                         break;
                     case '5':
-                        console.log("Eu sou o 5");
                         icon_url = result.five
                         break;
                     case '6':
@@ -69,6 +68,22 @@
                         break;
                 } 
                 wait_after_answer(name, icon_url); 
+            }
+        });
+    }
+
+    function get_answers_img(message_v2){
+        return $.ajax({
+            dataType: "text",
+            url: '/user/get_image/',
+            type: 'GET',
+            success: function(json) {
+                result = $.parseJSON(json);
+                return result.one;
+            },
+            complete: function (json) {
+                result = $.parseJSON(json.responseText);
+                renderMessage(message_v2, result); 
             }
         });
     }
@@ -81,7 +96,7 @@
     }
 
     function sendAnswer(){
-        var checkedValue = $('#iconSelect:checked').val();
+        var checkedValue = $('.icon:checked').val();
         var res = checkedValue.split(";");
         var hiddenVal = $('#custId').val();
         const msg = {
@@ -103,27 +118,47 @@
     }
 
     // Renders a specific message
-    function renderMessage(messageObject) {
+    function renderMessage(messageObject, result) {
         const messageDiv = document.createElement('div');
 
         messageDiv.innerHTML = ' <div class = "full_body_white row">\n';
         messageDiv.innerHTML += "<form>";
         messageDiv.innerHTML += '<input type="hidden" id="custId" name="custId" value="' + messageObject.question + '">';
-        
+        messageDiv.innerHTML += '<div class = "d-flex justify-content-center col-6">\n';
         var stuff = messageObject.answers;
         Object.keys(stuff).forEach(function(k) {
-
-            messageDiv.innerHTML += '<div class = "d-flex justify-content-center col-6">\n';
+            icon_url = "string"
+            console.log(k + ' -> ' + stuff[k])
+            switch(stuff[k]) {
+                case 1:
+                    icon_url = result.one
+                    break;
+                case 2:
+                    icon_url = result.two
+                    break;
+                case 3:
+                    icon_url = result.three
+                    break;
+                case 4:
+                    icon_url = result.four
+                    break;
+                case 5:
+                    icon_url = result.five
+                    break;
+                case 6:
+                    icon_url = result.six
+                    break;
+            } 
             messageDiv.innerHTML += '<div class = "row" style="align-content:center;">\n';
-            messageDiv.innerHTML += '<input class="icon" id="icon_' + k + '"  name="icon" type="radio" value="' + k + '" checked="checked"/>\n';
-            var s = "icon" + k + ".png";
-            messageDiv.innerHTML += '<label for="icon_' + k + '"><img class="image_icon_answer" src="<%= asset_path(s) %>"/>\n';
-            messageDiv.innerHTML += '</label>\n</div>\n</div>';
+            messageDiv.innerHTML += '<input class="icon" id="icon_' + stuff[k] + '"  name="icon" type="radio" value="' + k + ';' + stuff[k] + '"/>\n';
+            messageDiv.innerHTML += '<label for="icon_' + stuff[k] + '"><img class="image_icon_answer" src="' + icon_url + '"/>\n';
+            messageDiv.innerHTML += '</label>\n</div>';
             //messageDiv.innerHTML += '<input id="iconSelect" name="icon" type="radio" value="' + k + ';' + stuff[k] + '"/>'
             //messageDiv.innerHTML += "<h1>" + k + " - " + stuff[k] + "</h1>";
             console.log(k + " : " + stuff[k]);
         });
 
+        messageDiv.innerHTML += '\n</div>';
         messageDiv.innerHTML += '<input type="button" value="clickme" onclick="sendAnswer();"/> </form> \n</div>'
 
         bodyDiv.innerHTML = messageDiv.innerHTML;
@@ -165,7 +200,7 @@
             // Renders any newly created messages onto the page
             if (msg.message) {
                 const msg_v2 = JSON.parse(msg.message);
-                renderMessage(msg_v2)
+                get_answers_img(msg_v2)
             }
             
         };
