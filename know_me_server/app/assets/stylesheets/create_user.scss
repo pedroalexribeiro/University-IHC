@@ -10,7 +10,7 @@
 }
 .title-row{
     height: 15vh;
-    font-size: 80px;
+    font-size: 10vw;
     font-weight: 900;
     color: #616160;
     align-content: center;
@@ -28,20 +28,20 @@
     margin: 0;
 }
 .image_icon {
-    width: 16vh;
-    height: 16vh;
+    width: 15vh;
+    height: 15vh;
   }
 
 label{
     border-style: solid;
-    border-width: 12px;
-    border-radius: 12px;
+    border-width: 2vw;
+    border-radius: 5vw;
     border-color: #0b998e;
 }
 :checked + label {
     border-style: solid;
-    border-width: 12px;
-    border-radius: 12px;
+    border-width: 2vw;
+    border-radius: 5vw;
     border-color: #616160;
 }
 .input-row{
@@ -51,30 +51,30 @@ label{
 
 #input_name{
     color: #616160;
-    border-radius: 20px;
+    border-radius: 3vw;
     height: 7vh;
     width: 65vw;
     text-align: center;
-    font-size: 50px;
+    font-size: 9vw;
 }
 input[id=create_user_button]{
     background-color: #0b998e;
     color: white;
-    border-radius: 20px;
+    border-radius: 3vw;
     height: 7vh;
     width: 65vw;
     text-align: center;
-    font-size: 50px;
+    font-size: 9vw;
     font-weight: 700;
 }
 input[id=create_user_button]:disabled {
     background-color: #c6c6c6;
     color: white;
-    border-radius: 20px;
+    border-radius: 3vw;
     height: 7vh;
     width: 65vw;
     text-align: center;
-    font-size: 50px;
+    font-size: 9vw;
     font-weight: 700;
   }
 
