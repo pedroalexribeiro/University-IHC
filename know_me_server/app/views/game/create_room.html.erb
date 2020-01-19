@@ -1,13 +1,18 @@
 <div class="main-wrapper row">
   <!-- Left side of the screen --> 
   <div class="col-md-8 section gradient-background">
-    <h5> código para entrar na sala </h5>
-    <h3> <%= @code %> </h3>
+    <p id="rCode">Room code:</p>
+    <p id="room_code">#<%= @code %> </p>
+    <img id="qr" src="<%= asset_path('qr.png') %>" />
+
   </div>
   <!-- Right side of the screen -->
   <div class="col-md-4 section white-background">
     <div>
-      <%= link_to "Start Game", game_room_path, class: "btn gradient-button" %>
+        <p id="nplayers">Number of players</p>
+        <p id="minmax">Min 2 - Max 6</p>
+        <%= link_to "Start Game", game_room_path, class: "btn gradient-button" %>
     </div>
   </div>
 </div>
+

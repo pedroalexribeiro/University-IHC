@@ -14,9 +14,19 @@
   max-width: 15vh;
   max-height: 15vh;
 }
+#horizontal_logo{
+    height: 4vh;
+    width: 15vw;
+}
+.mini_icon{
+    height: 3vh;
+    width: 2vw;
+}
 
 .white-background {
-  background-image: white;  
+    text-align: center;
+    background-image: white;  
+    background-color: white;
 }
 
 .gradient-background {
@@ -31,9 +41,38 @@
   background-image: linear-gradient(to right, #0b998e, #6bb96c);  
   background-repeat: repeat-x;
   display: block;
-  width: 25vw;
+  height: 8vh;
+  width: 20vw;
   margin: 0 auto;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 30px;
 }
+#rCode{
+    font-size: 30px;
+    color: white;
+}
+#room_code{
+    font-size: 90px;
+    color: white;
+}
+#nplayers{
+    font-size: 30px;
+    color: #616160;
+}
+#minmax{
+    font-size: 20px;
+    color: #bbb9b9;
+}
+#qr{
+    height: 20vh;
+    width: 15vw;
+}
+
+
+
+
 
 .main-wrapper {
   height: 100vh;
@@ -48,7 +87,6 @@
   justify-content: center;
   align-items: center;
 }
-
 .half {
   display: flex;
   justify-content: center;
@@ -58,3 +96,13 @@
   margin: 0 auto;
 }
 
+
+.top_row{
+    height: 20vh;
+    align-content: center;
+}
+.mid_row{
+    height: 65vh;
+    width:100vw;
+    align-content: center;
+}

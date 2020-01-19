@@ -1,18 +1,71 @@
-<%= form_tag user_wait_path, id: 'user-form', method: :post, remote: false do %>
-    <input id="icon_1" name="icon" type="radio" value="1" checked="checked" />
-    <img src="<%= asset_path('icon1.png') %>" width="100" height="100"/>
-    <input id="icon_2" name="icon" type="radio" value="2" />
-    <img src="<%= asset_path('icon2.png') %>" width="100" height="100"/>
-    <input id="icon_3" name="icon" type="radio" value="3" />
-    <img src="<%= asset_path('icon3.png') %>" width="100" height="100"/>
-    <input id="icon_4" name="icon" type="radio" value="4" />
-    <img src="<%= asset_path('icon4.png') %>" width="100" height="100"/>
-    <input id="icon_5" name="icon" type="radio" value="5" />
-    <img src="<%= asset_path('icon5.png') %>" width="100" height="100"/>
-    <input id="icon_6" name="icon" type="radio" value="6" />
-    <img src="<%= asset_path('icon6.png') %>" width="100" height="100"/>
-    <label class="">Your name</label>
-    <%= text_field_tag :name %>
-    <%= hidden_field_tag :room, @room %>
-    <input type="submit" value="Submit" class='btn btn-default' %> 
-<% end %>
+<div class = "full_body_white row ">
+    <div class = "col">
+        <div class = "title-row row">
+            <div class = "d-flex justify-content-center col">
+                SELECT AN ICON
+            </div>
+        </div>
+        <%= form_tag user_wait_path, id: 'user-form', method: :post, remote: false do %>
+        <div class = "image-row row">
+            <div class = "col">
+                <div class = "row"> 
+                    <div class = "d-flex justify-content-center col">
+                        <input class="icon" id="icon_1"  name="icon" type="radio" value="1" checked="checked"/>
+                        <label for="icon_1"><img class="image_icon" src="<%= asset_path('icon1.png') %>" width="100" height="100"/></label>
+                    </div>
+                    <div class = "d-flex justify-content-center col">
+                        <input class="icon" id="icon_2" name="icon" type="radio" value="2" />
+                        <label for="icon_2"><img class="image_icon" src="<%= asset_path('icon2.png') %>" width="100" height="100"/></label>
+                    </div>
+                </div><br><br>
+                 <div class = "row"> 
+                    <div class = "d-flex justify-content-center col">
+                        <input class="icon" id="icon_3" name="icon" type="radio" value="3" />
+                        <label for="icon_3"><img class="image_icon" src="<%= asset_path('icon3.png') %>" width="100" height="100"/></label>
+                    </div>
+                    <div class = "d-flex justify-content-center col">
+                        <input class="icon" id="icon_4" name="icon" type="radio" value="4" />
+                        <label for="icon_4"><img class="image_icon" src="<%= asset_path('icon4.png') %>" width="100" height="100"/></label>
+                    </div>
+                </div><br><br>
+                 <div class = "row"> 
+                    <div class = "d-flex justify-content-center col">
+                        <input class="icon" id="icon_5" name="icon" type="radio" value="5" />
+                        <label for="icon_5"><img class="image_icon" src="<%= asset_path('icon5.png') %>" width="100" height="100"/></label>
+                    </div>
+                    <div class = "d-flex justify-content-center col">   
+                        <input class="icon" id="icon_6" name="icon" type="radio" value="6" />
+                        <label for="icon_6"><img class="image_icon" src="<%= asset_path('icon6.png') %>" width="100" height="100"/></label>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <div class = "input-row row">
+            <div class = "col">
+                    <div class = "row">
+                        <div class="d-flex justify-content-center col">
+                            <%= text_field_tag :name, nil, placeholder: 'Write Name', id: "input_name"%>
+                            <%= hidden_field_tag :room, @room %> 
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class="d-flex justify-content-center col">
+                            <input type="submit" value="CONFIRM" id="create_user_button" disabled="disabled"%>
+                        </div>
+                        <% end %>
+                    </div>
+            </div>
+        </div>      
+    </div>
+</div>
+
+<script type=text/javascript>
+window.setInterval(function(){
+    var y = document.getElementById('input_name').value;
+    if(y.length > 0){
+        document.getElementById("create_user_button").disabled = false;
+    }
+    else document.getElementById("create_user_button").disabled = true;
+    console.log(y.length);
+},300)
+</script>
