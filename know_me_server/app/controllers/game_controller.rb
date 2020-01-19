@@ -2,7 +2,7 @@
 
 # Game Controller
 class GameController < ApplicationController
-  before_action :set_game_room, only: %i[game_room]
+  before_action :set_game_room, only: %i[game_room final_answer]
   before_action :set_question_number, only: %i[game_room]
   before_action :set_round_number, only: %i[game_room round]
 
@@ -21,9 +21,10 @@ class GameController < ApplicationController
   end
 
   def game_room
-    if @number < 5
+    if @number.to_i < 5
       @question_theme = QuestionTheme.find(@round)
-      @question = @question_theme.questions.limit(5)[@number - 1]
+      @question = @question_theme.questions.order(:id).limit(4)[@number.to_i - 1]
+      session['question_id'] = @question.id
       ActionCable.server.broadcast("game_channel_stuff", JSON.generate(question: @question.id, answers: select_answers))
       respond_to do |format|
         format.js { render :game_room }
@@ -38,16 +39,28 @@ class GameController < ApplicationController
     offset = rand(QuestionTheme.count)
     @question_theme = QuestionTheme.offset(offset).first
     @question_theme = QuestionTheme.offset(offset).second if @question_theme.id == @round
-    session['number'] = 1
     session['round_number'] = session['round_number'] ? (session['round_number'] + 1) : 1
+    @number = 1
     if session['round_number'] < 3
       respond_to do |format|
         format.js { render :round }
         format.html { render :round }
       end
     else
-      redirect_to point_screen_path
+      redirect_to end_screen_path
     end
+  end
+
+  def final_answer
+    @number = params['number'].to_i
+    @question = Question.find_by(id: session['question_id'])
+    number_players = @game_room.users.count
+    answers = UserAnswer.where(question_id: session['question_id']).last(number_players)
+    @rez = {}
+    answers.group_by(&:name).each do |name, user_answers|
+      @rez[name] = user_answers.count
+    end
+    select_answers
   end
 
   def point_screen; end
@@ -71,8 +84,7 @@ class GameController < ApplicationController
   end
 
   def set_question_number
-    session['number'] ||= 1
-    @number = session['number'].to_i
+    @number = params['number'] ? (params['number']) : 1
   end
 
   def set_round_number
