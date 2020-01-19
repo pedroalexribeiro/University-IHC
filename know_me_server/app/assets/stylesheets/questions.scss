@@ -1,6 +1,6 @@
 .card_general{
     height: 30vh;
-    width: 26vh;
+    width: 27vh;
     background-color: #eeecec;
     box-shadow: 0.5vw 1vw 1.5vw #c6c6c6;
     border-radius: 2vw;
@@ -17,8 +17,8 @@
     color: black;
 }
 .image_answer{
-    max-width: 17vh;
-    max-height: 17vh;
+    max-width: 19vh;
+    max-height: 19vh;
     border-style: solid;
     border-width: 0.5vw;
     border-radius: 2vw;
@@ -26,6 +26,17 @@
 }
 
 .image_icon_answer {
-    width: 18vh;
-    height: 18vh;
+    max-width: 18vh;
+    max-height: 18vh;
   }
+
+.name_answer{
+    font-size: 5vw;
+}
+.card_answer{
+    height: 28vh;
+    width: 25vh;
+    background-color: #eeecec;
+    box-shadow: 0.5vw 1vw 1.5vw #c6c6c6;
+    border-radius: 2vw;
+}

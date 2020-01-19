@@ -90,8 +90,13 @@
     
     function wait_after_answer(name, img_src){
         const messageDiv = document.createElement('div');
-        messageDiv.innerHTML = '<h2>' + name + '</h2>';
-        messageDiv.innerHTML += '<img class="image_icon_big" src="' + img_src + '"/>'; 
+
+        var s = '<div class = "full_body_white row" style="align-content:center;">\n<div class = "col"><div class="row">';
+        s+= '<div class = "d-flex justify-content-center col"> <img class="image_icon_big" src="' + img_src + '"/></div></div>'
+        s+= '<div class="row"> <div class="col"> <div class="row"> <div class="col" style="display: flex; justify-content: center;"><p class="name_big">' + name + '</p></div></div>';
+        s+= '<div class="row">  <div class="col" style="display: flex; justify-content: center;"><p class="help_small"> Waiting for other players</p>';
+        s+= '</div></div></div></div></div></div>';
+        messageDiv.innerHTML = s;
         bodyDiv.innerHTML = messageDiv.innerHTML;
     }
 
@@ -121,10 +126,7 @@
     function renderMessage(messageObject, result) {
         const messageDiv = document.createElement('div');
 
-        messageDiv.innerHTML = ' <div class = "full_body_white row">\n';
-        messageDiv.innerHTML += "<form>";
-        messageDiv.innerHTML += '<input type="hidden" id="custId" name="custId" value="' + messageObject.question + '">';
-        messageDiv.innerHTML += '<div class = "d-flex justify-content-center col-6">\n';
+        var s = ' <div class = "full_body_white row">\n  <input type="hidden" id="custId" name="custId" value="'+ messageObject.question + '">';
         var stuff = messageObject.answers;
         Object.keys(stuff).forEach(function(k) {
             icon_url = "string"
@@ -149,18 +151,19 @@
                     icon_url = result.six
                     break;
             } 
-            messageDiv.innerHTML += '<div class = "row" style="align-content:center;">\n';
-            messageDiv.innerHTML += '<input class="icon" id="icon_' + stuff[k] + '"  name="icon" type="radio" value="' + k + ';' + stuff[k] + '"/>\n';
-            messageDiv.innerHTML += '<label for="icon_' + stuff[k] + '"><img class="image_icon_answer" src="' + icon_url + '"/>\n';
-            messageDiv.innerHTML += '</label>\n</div>';
-            //messageDiv.innerHTML += '<input id="iconSelect" name="icon" type="radio" value="' + k + ';' + stuff[k] + '"/>'
-            //messageDiv.innerHTML += "<h1>" + k + " - " + stuff[k] + "</h1>";
+            s += '<div class = "d-flex justify-content-center col-6">\n';
+            s += '<div class = "row" style="align-content: center;">\n';
+            s += '<div class="card_answer card"> <div class="card-body">';
+            s += '<input class="icon" id="icon_' + stuff[k] + '"  name="icon" type="radio" value="' + k + ';' + stuff[k] + '"/>\n';
+            s += '<label for="icon_' + stuff[k] + '"><img class="image_icon_answer" src="' + icon_url + '"/>\n</label>\n';
+            s += '<p class="name_answer">'+k+'</p>'; 
+            s += '</div></div></div></div>';
             console.log(k + " : " + stuff[k]);
         });
 
-        messageDiv.innerHTML += '\n</div>';
-        messageDiv.innerHTML += '<input type="button" value="clickme" onclick="sendAnswer();"/> </form> \n</div>'
-
+       
+        s += '<input id="vote_button" type="button" value="Vote" onclick="sendAnswer();"/>  \n</div>'
+        messageDiv.innerHTML = s;
         bodyDiv.innerHTML = messageDiv.innerHTML;
     }
 
