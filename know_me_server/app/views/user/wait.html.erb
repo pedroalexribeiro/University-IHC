@@ -2,14 +2,14 @@
     <div class = "col">
         <div class="row">
             <div class = "d-flex justify-content-center col">
-                <img class="image_icon_big" src="<%= asset_path('icon1.png') %>"/>
+                <img class="image_icon_big" src="<%= asset_path('icon' + @icon.to_s + '.png') %>"/>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <div class="row"> 
+                <div class="row">
                     <div class="col" style="display: flex; justify-content: center;">
-                        <p class="name_big"> Francisco</p>
+                        <p class="name_big"> <%= @name %></p>
                     </div>
                 </div>
                 <div class="row"> 
@@ -31,10 +31,59 @@
 
     var socket = new WebSocket(webSocketUrl);
 
+    function get_src_img(name, param){
+        return $.ajax({
+            dataType: "text",
+            url: '/user/get_image/',
+            type: 'GET',
+            data: {
+                icon: param
+            },
+            success: function(json) {
+                result = $.parseJSON(json);
+                return result.one;
+            },
+            complete: function (json) {
+                console.log("number = " + param)
+                result = $.parseJSON(json.responseText);
+                icon_url = "string"
+                switch(param) {
+                    case '1':
+                        icon_url = result.one
+                        break;
+                    case '2':
+                        icon_url = result.two
+                        break;
+                    case '3':
+                        icon_url = result.three
+                        break;
+                    case '4':
+                        icon_url = result.four
+                        break;
+                    case '5':
+                        console.log("Eu sou o 5");
+                        icon_url = result.five
+                        break;
+                    case '6':
+                        icon_url = result.six
+                        break;
+                } 
+                wait_after_answer(name, icon_url); 
+            }
+        });
+    }
+    
+    function wait_after_answer(name, img_src){
+        const messageDiv = document.createElement('div');
+        messageDiv.innerHTML = '<h2>' + name + '</h2>';
+        messageDiv.innerHTML += '<img class="image_icon_big" src="' + img_src + '"/>'; 
+        bodyDiv.innerHTML = messageDiv.innerHTML;
+    }
+
     function sendAnswer(){
         var checkedValue = $('#iconSelect:checked').val();
+        var res = checkedValue.split(";");
         var hiddenVal = $('#custId').val();
-        console.log(checkedValue);
         const msg = {
             command: 'message',
             identifier: JSON.stringify({
@@ -43,13 +92,14 @@
             }),
             data: JSON.stringify({
                 action: 'answer', args: JSON.stringify({
-                    answer: checkedValue,
+                    answer: res[0],
                     question: hiddenVal
                 })
             })
         };
-
         socket.send(JSON.stringify(msg));
+
+        var src_img = get_src_img(res[0], res[1]);
     }
 
     // Renders a specific message
@@ -69,7 +119,7 @@
             var s = "icon" + k + ".png";
             messageDiv.innerHTML += '<label for="icon_' + k + '"><img class="image_icon_answer" src="<%= asset_path(s) %>"/>\n';
             messageDiv.innerHTML += '</label>\n</div>\n</div>';
-            //messageDiv.innerHTML += '<input id="iconSelect" name="icon" type="radio" value="' + k + '"/>'
+            //messageDiv.innerHTML += '<input id="iconSelect" name="icon" type="radio" value="' + k + ';' + stuff[k] + '"/>'
             //messageDiv.innerHTML += "<h1>" + k + " - " + stuff[k] + "</h1>";
             console.log(k + " : " + stuff[k]);
         });

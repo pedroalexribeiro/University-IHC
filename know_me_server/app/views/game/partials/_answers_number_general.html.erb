@@ -1,0 +1,10 @@
+<% @answers.each do |answer| %>
+<div class="col">
+    <div class="card_general card">
+        <div class="card-body">
+            <img class="image_answer" src="<%= asset_path('icon' + answer.icon.to_s + '.png') %>" />
+            <%= answer.name %> Votes: <%= @rez[answer.name] ? @rez[answer.name] : 0 %>
+        </div>
+    </div>
+</div>
+<% end %>
