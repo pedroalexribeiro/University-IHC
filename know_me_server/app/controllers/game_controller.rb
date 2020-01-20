@@ -91,6 +91,6 @@ class GameController < ApplicationController
     offset = rand(QuestionTheme.count)
     theme = QuestionTheme.offset(offset).first
     session['round'] ||= theme.id
-    @round = session['round'].to_i
+    @round = session['round'] < QuestionTheme.count ? session['round'] + 1 : 1
   end
 end

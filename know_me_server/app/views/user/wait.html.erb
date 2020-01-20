@@ -161,8 +161,9 @@
             console.log(k + " : " + stuff[k]);
         });
 
-       
+        s += '<div class="align" >'
         s += '<input id="vote_button" type="button" value="Vote" onclick="sendAnswer();"/>  \n</div>'
+        s += '</div>'
         messageDiv.innerHTML = s;
         bodyDiv.innerHTML = messageDiv.innerHTML;
     }

@@ -14,7 +14,7 @@
                     <%= render "game/partials/answers" %>
                 </div>
             </div>
-                <%= link_to "Answers", final_answer_path(number: @number.to_i), remote: true %>
+                <%= link_to "Answers", final_answer_path(number: @number.to_i), class: "btn gameroom-btn", remote: true %>
         </div>
     </div>
 </div>

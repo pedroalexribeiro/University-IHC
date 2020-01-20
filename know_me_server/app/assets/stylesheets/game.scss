@@ -13,14 +13,16 @@
 .image {
   max-width: 15vh;
   max-height: 15vh;
+  padding: 10px;
 }
 #horizontal_logo{
     height: 4vh;
     width: 15vw;
+    margin-left: 40px;
 }
 .mini_icon{
-    height: 3vh;
-    width: 2vw;
+  display: inline-block;
+  padding-right: 20px;
 }
 
 .white-background {
@@ -41,7 +43,7 @@
   background-image: linear-gradient(to right, #0b998e, #6bb96c);  
   background-repeat: repeat-x;
   display: block;
-  height: 8vh;
+  height: 7vh;
   width: 20vw;
   margin: 0 auto;
   color: white;
@@ -64,10 +66,6 @@
 #minmax{
     font-size: 20px;
     color: #bbb9b9;
-}
-#qr{
-    height: 20vh;
-    width: 15vw;
 }
 
 
